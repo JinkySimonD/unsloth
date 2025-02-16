@@ -403,17 +403,7 @@ class FastBaseVisionModel:
             if hasattr(module, "training"):
                 module.training = True
         pass
-
-        # Also revert model.generate
-        if hasattr(model, "_unwrapped_old_generate"):
-            try:
-                model.generate = model._unwrapped_old_generate
-                del model._unwrapped_old_generate
-            except AttributeError:
-                pass  # Ignore if the attribute is not present
-            pass
  
-
         # Patch tokenizer to pad to the right
         internal_model = model
         while hasattr(internal_model, "model"):
